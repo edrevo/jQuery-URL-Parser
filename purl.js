@@ -228,10 +228,12 @@
             param : function(param, value) {
                 if (isPlainObject(param)) {
                     this.data.param.query = param;
+                    return this;
                 } else if (value == undefined) {
                     return typeof param !== 'undefined' ? this.data.param.query[param] : this.data.param.query;
                 } else {
                     this.data.param.query[param] = value;
+                    return this;
                 }
             },
 
@@ -269,6 +271,9 @@
                 var buffer = "";
                 if (this.data.attr.host !== '') {
                     buffer += this.data.attr.protocol + '://' + this.data.attr.host;
+                }
+                if (this.data.attr.port !== '80') {
+                    buffer += ':' + this.data.attr.port;
                 }
                 buffer += this.data.attr.path;
                 if (Object.keys(this.data.param.query).length > 0) {
